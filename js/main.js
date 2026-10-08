@@ -343,7 +343,8 @@ const Game = (() => {
     for (let i = 0; i < 30; i++) W.pickups.push({ x: p.x + rand(-300, 300), y: p.y + rand(-200, 200), type: 'xp', big: chance(0.15), val: 1, vx: 0, vy: 0, mag: false, t: 0 });
     if (name.startsWith('boss')) {
       W.enemies.length = Math.min(W.enemies.length, 6);
-      const b = Bosses.create(STAGES[stage].boss); b.enter = 0; b.waitT = 0.2; b.x = p.x + 260; b.y = p.y - 60; b.hp = b.maxHp * 0.62;
+      const b = Bosses.create(STAGES[stage].boss); b.enter = 0; b.waitT = 0.2; b.hp = b.maxHp * 0.62;
+      if (innerWidth < 700) { b.x = p.x + 60; b.y = p.y - 170; } else { b.x = p.x + 260; b.y = p.y - 60; }
       W.boss = b; run.phase = 'boss';
     }
     // advance the simulation so the still frame has motion in it

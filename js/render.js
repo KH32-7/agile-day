@@ -21,7 +21,8 @@ const Render = (() => {
     const cam = W.cam, p = W.p;
     const base = clamp(Math.min(vw / (vw < 700 ? 500 : 740), vh / 540), 0.6, 1.8);
     cam.punch = damp(cam.punch, 0, 6, dt);
-    cam.zoom = base * (1 + cam.punch);
+    // never show past the arena edges, even on ultrawide screens
+    cam.zoom = Math.max(base, vw / ARENA.w, vh / ARENA.h) * (1 + cam.punch);
     cam.vw = vw / cam.zoom; cam.vh = vh / cam.zoom;
     if (follow && p) {
       // on the title screen the hero runs in the right half, clear of the logo
